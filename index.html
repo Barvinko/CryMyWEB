@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryWEB</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./public/style.css">
+    <script defer src="./node_modules/eccrypto-js/dist/umd/index.min.js"></script>
+    <script defer src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script defer src="./public/main.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="mt-5">
+            <h1>CryWEB</h1>
+        </header>
+        <main class="mt-5 w-100">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">KEY</label>
+                <input id="inputKey" class="form-control" type="file" accept=".txt">
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">DATA</label>
+                <input id="inputData" class="form-control" type="file" accept=".txt">
+            </div>
+            <!-- <button onclick="encryption()">Upload</button>
+            <button onclick="createKey()">Create key</button> -->
+            <div class="btn-group">
+                <button onclick="createKey()" type="button" class="btn btn-warning">Create key</button>
+                <button onclick="encryption(0)" type="button" class="btn btn-warning">Encryption</button>
+                <button onclick="encryption(1)" type="button" class="btn btn-warning">Decryption</button>
+            </div>
+            <div class="form-floating mt-3">
+                <textarea class="form-control" placeholder="Leave a comment here" id="textarea" style="height: 100px"></textarea>
+                <!-- <label for="floatingTextarea2">Comments</label> -->
+              </div>
+        </main>
+    </div>
+</body>
+</html>

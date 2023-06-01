@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "eccrypto-js": "^5.4.0"
+  }
+}

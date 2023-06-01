@@ -1,0 +1,14 @@
+#fileInput{
+    width: 150px;
+    height: 200px;
+    border: 2px dashed black;
+    display: block;
+}
+
+body{
+    background-color: rgba(0, 0, 0, 0.915);
+}
+
+h1, label{
+    color: rgba(255, 255, 255, 0.5);
+}
