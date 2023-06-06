@@ -18,10 +18,12 @@
         </header>
         <main class="mt-5 w-100">
             <div class="mb-3">
-                <label for="formFile" class="form-label">KEY</label>
+                <input class="form-check-input mt-1" type="checkbox" value="" id="checkKey">
+                <label for="formFile" class="form-label">KEY</label>                   
                 <input id="inputKey" class="form-control" type="file" accept=".txt">
             </div>
             <div class="mb-3">
+                <input class="form-check-input mt-1" type="checkbox" value="" id="chekData">
                 <label for="formFile" class="form-label">DATA</label>
                 <input id="inputData" class="form-control" type="file" accept=".txt">
             </div>
@@ -33,8 +35,11 @@
                 <button onclick="encryption(1)" type="button" class="btn btn-warning">Decryption</button>
             </div>
             <div class="form-floating mt-3">
+                <textarea class="form-control" placeholder="Leave a comment here" id="textareaKey" style="height: 60px"></textarea>
+              </div>
+            <div class="form-floating mt-3">
                 <textarea class="form-control" placeholder="Leave a comment here" id="textarea" style="height: 100px"></textarea>
-                <!-- <label for="floatingTextarea2">Comments</label> -->
+                <label for="floatingTextarea2">Comments</label>
               </div>
         </main>
     </div>

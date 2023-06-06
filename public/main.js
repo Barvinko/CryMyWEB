@@ -1,4 +1,31 @@
-const { encrypt } = require("eccrypto-js");
+//const { encrypt } = require("eccrypto-js");
+
+console.log("START")
+
+let checkKey = document.getElementById("checkKey");
+let checkKeyUse = false,checkDataUse = false;
+console.log(checkKeyUse, checkDataUse)
+let checkData = document.getElementById("chekData");
+
+// checkKey.addEventListener("change", () =>{
+//     if (checkKey.checked) {
+//         console.log("Checkbox выбран",this);
+//         // Действия при выбранном состоянии
+//       } else {
+//         console.log("Checkbox не выбран");
+//         // Действия при невыбранном состоянии
+//       }
+// })
+
+// function changeCheck(chekInput) {
+//     if (checkKey.checked) {
+//         console.log("Checkbox выбран",this);
+//         // Действия при выбранном состоянии
+//     } else {
+//         console.log("Checkbox не выбран");
+//         // Действия при невыбранном состоянии
+//     }
+// }
 
 function bitTo16(bits){
     let ints = [];
@@ -70,10 +97,14 @@ async function encryption(flag) {
 
     let key = "";
     let iv = "";
-    let file;
+    //let file;
     let stringData;
     let stringKey;
-    let textarea = document.getElementById("textarea")
+    let textarea = document.getElementById("textarea");
+    let textareaKey = document.getElementById("textareaKey")
+    let checkKey = document.getElementById("checkKey");
+    let checkData = document.getElementById("chekData");
+    
 
     // const fileInput = document.getElementById('fileInput');
     // const file = fileInput.files[0]; // Получаем выбранный файл
@@ -84,21 +115,81 @@ async function encryption(flag) {
     let keyFile = inputKey.files[0];
     console.log(dataFile,inputKey)
     
-    if (!keyFile || !dataFile) {
-        console.log("files is not have")
-        return;
+    // if (checkKey.checked && checkData.checked) {
+        
+    // }
+    if (checkKey.checked) {
+        const promiseKey = new Promise((resolve, reject) => {
+            //read files with key and text which need encryption
+            const reader = new FileReader();
+            reader.addEventListener('load', async (event) => {
+                //stringKey = event.target.result;
+                //console.log(stringKey);
+                resolve(event.target.result);
+            });
+            reader.readAsText(keyFile)
+        })
+        stringKey = await promiseKey.then((result) => {
+            console.log(result); // Результат выполнения
+            return result
+        }).catch((error) => {
+            console.error(error); // Ошибка
+        });
+    } else if(textarea.value.length != 0){
+        stringKey = textareaKey.value
     }
 
-    //read files with key and text which need encryption
-    const reader = new FileReader();
-    reader.addEventListener('load', async (event) => {
-        stringKey = event.target.result;
-        console.log(stringKey);
+    console.log(stringKey);
+
+    if (checkData.checked) {
         const readerData = new FileReader();
         readerData.addEventListener('load', async (event) => {
             stringData = event.target.result;
             console.log(stringData);
-            //fub=nction crypto have three pramaters: 
+        });
+        readerData.readAsText(dataFile)
+
+        const promiseData = new Promise((resolve, reject) => {
+            //read files with key and text which need encryption
+            const readerData = new FileReader();
+            readerData.addEventListener('load', async (event) => {
+                //stringKey = event.target.result;
+                //console.log(stringKey);
+                resolve(event.target.result);
+            });
+            readerData.readAsText(dataFile)
+        })
+        stringData = await promiseData.then((result) => {
+            console.log(result); // Результат выполнения
+            return result
+        }).catch((error) => {
+            console.error(error); // Ошибка
+        });
+    } else{
+        stringData = textarea.value;
+        console.log(textarea)
+
+    }
+
+    console.log(stringData)
+
+    if (!stringKey || !stringData) {
+        console.log("not have needed data")
+        return;
+    }
+
+    //read files with key and text which need encryption
+    // const reader = new FileReader();
+    // reader.addEventListener('load', async (event) => {
+
+    //     stringKey = event.target.result;
+    //     console.log(stringKey);
+        //return stringKey
+        // const readerData = new FileReader();
+        // readerData.addEventListener('load', async (event) => {
+        //     stringData = event.target.result;
+            console.log(stringData);
+            //function crypto have three pramaters: 
             //first text of fileKey in form of string;  
             //second text of fileData in form of string
             //third parameter indicate what need do: encryp or decryp
@@ -139,14 +230,13 @@ async function encryption(flag) {
                     console.log(decrypted,"|decrypted");
                     textarea.innerHTML = decrypted;
                     break;
-                    
+
                 default:
                     break;
             }
             console.log(textarea.innerHTML)
-        });
-        readerData.readAsText(dataFile)
-    });
-    reader.readAsText(keyFile)
-    console.log(reader)
+    //     });
+    //     readerData.readAsText(dataFile)
+    // });
+    // reader.readAsText(keyFile)
 }
