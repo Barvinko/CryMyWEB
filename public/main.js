@@ -48,8 +48,9 @@ function transformKey(arrNum) {
     // let arrNum = (param.exec(data))[0];  
     // console.log(arrNum,"first")
     
-    // arrNum = arrNum.split(' ').join('');
-    // arrNum = arrNum.split('');
+    console.log(arrNum,"entered data for function transformKey")
+    //arrNum = arrNum.split(' ').join('');
+    arrNum = arrNum.split('');
     // console.log(arrNum,"secont")
     let lengthFutureArr = arrNum.length/2
     let arrBit = eccryptoJS.randomBytes(lengthFutureArr);
@@ -63,51 +64,6 @@ function transformKey(arrNum) {
         //console.log(arrBit[i]);
     }
     return arrBit;
-}
-
-async function crypto(stringKey,stringData,flag) {
-    let text = ""
-    let key = "";
-    let iv = "";
-    let keyfile = "";
-    const regex = /\b([A-Fa-f0-9]{96})\b/g;
-    //key = data;
-    //const match = regex.key.exec(data);
-    keyfile = (regex.exec(stringKey))[0]
-    key = keyfile.split('');
-    iv = key.splice(0,32);
-    key = transformKey(key);
-    iv = transformKey(iv)
-    console.log(iv,"IV") 
-    console.log(key,"Key")
-
-    switch (flag) {
-        //encryption
-        case 0:
-            text = eccryptoJS.utf8ToBuffer(stringData);
-            console.log(text,"text");  // выводим считанные данные
-
-            console.log(iv, key, text)
-            let ciphertext = await eccryptoJS.aesCbcEncrypt(iv, key, text);
-            ciphertext = bitTo16(ciphertext)
-            console.log(ciphertext,"ciphertext");
-            return ciphertext;
-            
-        case 1:
-            text = stringData.split('')
-            console.log(text)
-            text = transformKey(text);
-            //text = new Uint8Array(text.data);
-            console.log(text,"text")
-
-            let decrypted = await eccryptoJS.aesCbcDecrypt(iv, key, text);
-            decrypted = decrypted.toString();
-            console.log(decrypted,"|decrypted");
-            return decrypted;
-    
-        default:
-            break;
-    }
 }
   
 async function encryption(flag) {
@@ -146,17 +102,47 @@ async function encryption(flag) {
             //first text of fileKey in form of string;  
             //second text of fileData in form of string
             //third parameter indicate what need do: encryp or decryp
+            let text = ""
+            // let key = "";
+            // let iv = "";
+            let keyfile = "";
+            const regex = /\b([A-Fa-f0-9]{96})\b/g;
+            //key = data;
+            //const match = regex.key.exec(data);
+            keyfile = (regex.exec(stringKey))[0]
+            key = keyfile.split('');
+            iv = key.splice(0,32);
+            key = transformKey(key.join(''));
+            iv = transformKey(iv.join(''))
+            console.log(iv,"IV") 
+            console.log(key,"Key")
+
             switch (flag) {
+                //encryption
                 case 0:
-                    textarea.innerHTML = await crypto(stringKey,stringData,flag)
+                    text = eccryptoJS.utf8ToBuffer(stringData);
+                    console.log(text,"text");  // выводим считанные данные
+
+                    console.log(iv, key, text)
+                    let ciphertext = await eccryptoJS.aesCbcEncrypt(iv, key, text);
+                    ciphertext = bitTo16(ciphertext)
+                    console.log(ciphertext,"ciphertext");
+                    textarea.innerHTML = ciphertext;
                     break;
+                //decry
                 case 1:
-                    textarea.innerHTML = await crypto(stringKey,stringData,flag)
+                    text = transformKey(stringData);
+                    console.log(text,"text")
+
+                    let decrypted = await eccryptoJS.aesCbcDecrypt(iv, key, text);
+                    decrypted = decrypted.toString();
+                    console.log(decrypted,"|decrypted");
+                    textarea.innerHTML = decrypted;
                     break;
+                    
                 default:
                     break;
             }
-            //textarea.innerHTML = await crypto(stringKey,stringData,flag)
             console.log(textarea.innerHTML)
         });
         readerData.readAsText(dataFile)
