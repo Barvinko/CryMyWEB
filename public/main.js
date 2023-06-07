@@ -1,32 +1,24 @@
-//const { encrypt } = require("eccrypto-js");
-
-console.log("START")
-
 let checkKey = document.getElementById("checkKey");
-let checkKeyUse = false,checkDataUse = false;
-console.log(checkKeyUse, checkDataUse)
 let checkData = document.getElementById("chekData");
 
-// checkKey.addEventListener("change", () =>{
-//     if (checkKey.checked) {
-//         console.log("Checkbox выбран",this);
-//         // Действия при выбранном состоянии
-//       } else {
-//         console.log("Checkbox не выбран");
-//         // Действия при невыбранном состоянии
-//       }
-// })
+//allow and ban file transfer access for user
+checkKey.addEventListener("change", function() {
+    changeCheck(inputKey, checkKey.checked);
+});
+  
+checkData.addEventListener("change", function() {
+    changeCheck(inputData, checkData.checked);
+});
 
-// function changeCheck(chekInput) {
-//     if (checkKey.checked) {
-//         console.log("Checkbox выбран",this);
-//         // Действия при выбранном состоянии
-//     } else {
-//         console.log("Checkbox не выбран");
-//         // Действия при невыбранном состоянии
-//     }
-// }
+function changeCheck(input,check) {
+    if (check) {
+        input.disabled = false;
+    } else {
+        input.disabled = true;
+    }
+}
 
+//transformed array of bits in 10 system to string in 16 unit
 function bitTo16(bits){
     let ints = [];
     for (let i = 0; i < bits.length; i++) {
@@ -39,6 +31,7 @@ function bitTo16(bits){
     return ints.join('')
 }
 
+//create key AES-256 and downland fail with key
 function createKey() {
 
     // создание ключа
@@ -71,60 +64,48 @@ function createKey() {
     URL.revokeObjectURL(url); // Освобождаем ресурсы URL
 }
 
-function transformKey(arrNum) {
-    // let arrNum = (param.exec(data))[0];  
-    // console.log(arrNum,"first")
-    
+//transform string in 16 unit to array of bits in 10 unit
+function transformKey(arrNum) {  
     console.log(arrNum,"entered data for function transformKey")
-    //arrNum = arrNum.split(' ').join('');
     arrNum = arrNum.split('');
-    // console.log(arrNum,"secont")
     let lengthFutureArr = arrNum.length/2
     let arrBit = eccryptoJS.randomBytes(lengthFutureArr);
-    // let arrBit = new ArrayBuffer();
     console.log(arrBit)
-    //senderPrivateKey = senderPrivateKey.privateKey;
     for (let i = 0; i < lengthFutureArr; i++) {
         let temp = arrNum.splice(0,2)
         temp = parseInt(temp.join(''),16)
         arrBit[i] = temp;
-        //console.log(arrBit[i]);
     }
     return arrBit;
 }
   
+//function of encription and decription, choose which is depended of flag's value
 async function encryption(flag) {
-
     let key = "";
     let iv = "";
-    //let file;
+    //datas from file or textarea
     let stringData;
     let stringKey;
+    //Link of textarea's element
     let textarea = document.getElementById("textarea");
     let textareaKey = document.getElementById("textareaKey")
+
     let checkKey = document.getElementById("checkKey");
     let checkData = document.getElementById("chekData");
-    
-
-    // const fileInput = document.getElementById('fileInput');
-    // const file = fileInput.files[0]; // Получаем выбранный файл
-    // let data = document.querySelector("#inputData");
     let inputData = document.getElementById("inputData")
-    let dataFile = inputData.files[0];
     let inputKey = document.getElementById("inputKey");
+    let dataFile = inputData.files[0];
     let keyFile = inputKey.files[0];
+    let text = ""
+    let keyfile = "";
+    const regex = /\b([A-Fa-f0-9]{96})\b/g;
     console.log(dataFile,inputKey)
     
-    // if (checkKey.checked && checkData.checked) {
-        
-    // }
     if (checkKey.checked) {
         const promiseKey = new Promise((resolve, reject) => {
             //read files with key and text which need encryption
             const reader = new FileReader();
             reader.addEventListener('load', async (event) => {
-                //stringKey = event.target.result;
-                //console.log(stringKey);
                 resolve(event.target.result);
             });
             reader.readAsText(keyFile)
@@ -135,7 +116,7 @@ async function encryption(flag) {
         }).catch((error) => {
             console.error(error); // Ошибка
         });
-    } else if(textarea.value.length != 0){
+    } else if(textareaKey.value){
         stringKey = textareaKey.value
     }
 
@@ -153,8 +134,6 @@ async function encryption(flag) {
             //read files with key and text which need encryption
             const readerData = new FileReader();
             readerData.addEventListener('load', async (event) => {
-                //stringKey = event.target.result;
-                //console.log(stringKey);
                 resolve(event.target.result);
             });
             readerData.readAsText(dataFile)
@@ -165,10 +144,9 @@ async function encryption(flag) {
         }).catch((error) => {
             console.error(error); // Ошибка
         });
-    } else{
+    } else if(textarea.value){
         stringData = textarea.value;
         console.log(textarea)
-
     }
 
     console.log(stringData)
@@ -178,65 +156,45 @@ async function encryption(flag) {
         return;
     }
 
-    //read files with key and text which need encryption
-    // const reader = new FileReader();
-    // reader.addEventListener('load', async (event) => {
 
-    //     stringKey = event.target.result;
-    //     console.log(stringKey);
-        //return stringKey
-        // const readerData = new FileReader();
-        // readerData.addEventListener('load', async (event) => {
-        //     stringData = event.target.result;
-            console.log(stringData);
-            //function crypto have three pramaters: 
-            //first text of fileKey in form of string;  
-            //second text of fileData in form of string
-            //third parameter indicate what need do: encryp or decryp
-            let text = ""
-            // let key = "";
-            // let iv = "";
-            let keyfile = "";
-            const regex = /\b([A-Fa-f0-9]{96})\b/g;
-            //key = data;
-            //const match = regex.key.exec(data);
-            keyfile = (regex.exec(stringKey))[0]
-            key = keyfile.split('');
-            iv = key.splice(0,32);
-            key = transformKey(key.join(''));
-            iv = transformKey(iv.join(''))
-            console.log(iv,"IV") 
-            console.log(key,"Key")
+    console.log(stringData);
+    //function crypto have three pramaters: 
+    //first text of fileKey in form of string;  
+    //second text of fileData in form of string
+    //third parameter indicate what need do: encryp or decryp
+    keyfile = (regex.exec(stringKey))[0]
+    key = keyfile.split('');
+    iv = key.splice(0,32);
+    key = transformKey(key.join(''));
+    iv = transformKey(iv.join(''))
+    console.log(iv,"IV") 
+    console.log(key,"Key")
 
-            switch (flag) {
-                //encryption
-                case 0:
-                    text = eccryptoJS.utf8ToBuffer(stringData);
-                    console.log(text,"text");  // выводим считанные данные
+    switch (flag) {
+        //encryption
+        case 0:
+            text = eccryptoJS.utf8ToBuffer(stringData);
+            console.log(text,"text");  // выводим считанные данные
 
-                    console.log(iv, key, text)
-                    let ciphertext = await eccryptoJS.aesCbcEncrypt(iv, key, text);
-                    ciphertext = bitTo16(ciphertext)
-                    console.log(ciphertext,"ciphertext");
-                    textarea.innerHTML = ciphertext;
-                    break;
-                //decry
-                case 1:
-                    text = transformKey(stringData);
-                    console.log(text,"text")
+            console.log(iv, key, text)
+            let ciphertext = await eccryptoJS.aesCbcEncrypt(iv, key, text);
+            ciphertext = bitTo16(ciphertext)
+            console.log(ciphertext,"ciphertext");
+            textarea.value = ciphertext;
+            break;
+        //decry
+        case 1:
+            text = transformKey(stringData);
+            console.log(text,"text")
 
-                    let decrypted = await eccryptoJS.aesCbcDecrypt(iv, key, text);
-                    decrypted = decrypted.toString();
-                    console.log(decrypted,"|decrypted");
-                    textarea.innerHTML = decrypted;
-                    break;
+            let decrypted = await eccryptoJS.aesCbcDecrypt(iv, key, text);
+            decrypted = decrypted.toString();
+            console.log(decrypted,"|decrypted");
+            textarea.value = decrypted;
+            break;
 
-                default:
-                    break;
-            }
-            console.log(textarea.innerHTML)
-    //     });
-    //     readerData.readAsText(dataFile)
-    // });
-    // reader.readAsText(keyFile)
+        default:
+            break;
+    }
+    console.log(textarea.value)
 }
