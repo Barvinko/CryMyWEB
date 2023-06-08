@@ -12,3 +12,36 @@ body{
 h1, label{
     color: rgba(255, 255, 255, 0.5);
 }
+
+#fileGroup .form-control{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+}
+
+#fileGroup .file{
+    width: 150px;
+    height: 200px;
+    position: relative;
+}
+
+#fieGroup > div{
+    width: 150px;
+}
+#fileGroup .file{
+    width: 150px;
+    height: 200px;
+    border: 10px dashed rgba(255, 255, 0, 0.736);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
+#fileGroup i{
+    color: rgba(255, 255, 0, 0.809);
+    font-size: 70px;
+    z-index: 1;
+}

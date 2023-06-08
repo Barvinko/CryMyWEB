@@ -10,22 +10,30 @@
     <script defer src="./node_modules/eccrypto-js/dist/umd/index.min.js"></script>
     <script defer src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script defer src="./public/main.js"></script>
+    <script defer src="https://kit.fontawesome.com/7cb20bcd44.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-        <header class="mt-5">
+        <header class="mt-4 d-flex justify-content-center">
             <h1>CryWEB</h1>
         </header>
         <main class="mt-5 w-100">
-            <div class="mb-3">
-                <input class="form-check-input mt-1" type="checkbox" id="checkKey">
-                <label for="formFile" class="form-label">KEY</label>                   
-                <input disabled id="inputKey" class="form-control" type="file" accept=".txt">
-            </div>
-            <div class="mb-3">
-                <input class="form-check-input mt-1" type="checkbox" value="" id="chekData">
-                <label for="formFile" class="form-label">DATA</label>
-                <input disabled id="inputData" class="form-control" type="file" accept=".txt">
+            <div id="fileGroup">
+                <div class="mb-3">
+                    <input class="form-check-input mt-1" type="checkbox" id="checkKey">  
+                    <label for="formFile" class="form-label">KEY</label> 
+                    <div class="file">                
+                        <input disabled id="inputKey" class="form-control" type="file" accept=".txt">
+                        <!-- <div class="fileFront"> -->
+                            <i class="fa-solid fa-plus fa-fade"></i>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input class="form-check-input mt-1" type="checkbox" value="" id="chekData">
+                    <label for="formFile" class="form-label">DATA</label>
+                    <input disabled id="inputData" class="form-control" type="file" accept=".txt">
+                </div>
             </div>
             <div class="btn-group">
                 <button onclick="createKey()" type="button" class="btn btn-warning">Create key</button>
@@ -34,11 +42,16 @@
             </div>
             <div class="form-floating mt-3">
                 <textarea class="form-control" placeholder="Leave a comment here" id="textareaKey" style="height: 60px"></textarea>
-              </div>
+                <label for="textareaKey">Comments</label>
+            </div>
             <div class="form-floating mt-3">
                 <textarea class="form-control" placeholder="Leave a comment here" id="textarea" style="height: 100px"></textarea>
                 <label for="textarea">Comments</label>
-              </div>
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Comments</label>
+            </div>
         </main>
     </div>
 </body>
