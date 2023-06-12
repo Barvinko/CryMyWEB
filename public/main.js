@@ -11,15 +11,19 @@ checkData.addEventListener("change", function() {
 });
 
 function changeCheck(input,check) {
-    let inputFile = document.querySelector(`#${check.id} ~ div.file`)
+    let inputFile = document.querySelector(`#${check.id} ~ div.file`);
     let plus = inputFile.querySelector("i");
+    let space = document.querySelector(`#${check.id} ~ div.space`)
+    console.log(plus)
     if (check.checked) {
         input.disabled = false;
         inputFile.classList.remove("file-disabled");
         plus.classList.add("fa-fade");
+        space.classList.add("space-active");
     } else {
         inputFile.classList.add("file-disabled");
         plus.classList.remove("fa-fade");
+        space.classList.remove("space-active")
         input.disabled = true;
     }
 }
