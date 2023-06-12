@@ -21,16 +21,11 @@ h1, label{
     z-index: 2;
 }
 
-#fileGroup .file{
-    width: 150px;
-    height: 200px;
-    position: relative;
-}
-
 #fieGroup > div{
     width: 150px;
 }
 #fileGroup .file{
+    position: relative;
     width: 150px;
     height: 200px;
     border: 10px dashed rgba(255, 255, 0, 0.8);
@@ -41,13 +36,18 @@ h1, label{
     border-radius: 30px;
 }
 
+.file-disabled{
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
 #fileGroup i{
     font-size: 70px;
     z-index: 1;
 }
 
 .form-check-input[type=checkbox]{
-    box-shadow: 0 0 0 0 ;
+    box-shadow: 0 0 0 0;
 }
 
 .form-check-input:checked[type=checkbox]{

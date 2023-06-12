@@ -3,17 +3,23 @@ let checkData = document.getElementById("chekData");
 
 //allow and ban file transfer access for user
 checkKey.addEventListener("change", function() {
-    changeCheck(inputKey, checkKey.checked);
+    changeCheck(inputKey, checkKey);
 });
   
 checkData.addEventListener("change", function() {
-    changeCheck(inputData, checkData.checked);
+    changeCheck(inputData, checkData);
 });
 
 function changeCheck(input,check) {
-    if (check) {
+    let inputFile = document.querySelector(`#${check.id} ~ div.file`)
+    let plus = inputFile.querySelector("i");
+    if (check.checked) {
         input.disabled = false;
+        inputFile.classList.remove("file-disabled");
+        plus.classList.add("fa-fade");
     } else {
+        inputFile.classList.add("file-disabled");
+        plus.classList.remove("fa-fade");
         input.disabled = true;
     }
 }
