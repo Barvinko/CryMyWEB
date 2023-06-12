@@ -33,7 +33,8 @@ h1, label{
 #fileGroup .file{
     width: 150px;
     height: 200px;
-    border: 10px dashed rgba(255, 255, 0, 0.736);
+    border: 10px dashed rgba(255, 255, 0, 0.8);
+    color: rgba(255, 255, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,7 +42,18 @@ h1, label{
 }
 
 #fileGroup i{
-    color: rgba(255, 255, 0, 0.809);
     font-size: 70px;
     z-index: 1;
+}
+
+.form-check-input[type=checkbox]{
+    box-shadow: 0 0 0 0 ;
+}
+
+.form-check-input:checked[type=checkbox]{
+    border-color: rgba(175, 175, 0, 1);
+    background-color: rgba(255, 255, 0, 0.8);
+    color: black;
+    box-shadow: 0 0 0px 3px rgba(255, 255, 0, 0.111);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
 }
