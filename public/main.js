@@ -1,8 +1,11 @@
 let checkKey = document.getElementById("checkKey");
 let checkData = document.getElementById("chekData");
+let inputKey = document.getElementById("inputKey");
+let inputData = document.getElementById("inputData")
 
 //allow and ban file transfer access for user
 checkKey.addEventListener("change", function() {
+    console.log(inputKey,checkKey)
     changeCheck(inputKey, checkKey);
 });
   
@@ -13,12 +16,16 @@ checkData.addEventListener("change", function() {
 function changeCheck(input,check) {
     let inputFile = document.querySelector(`#${check.id} ~ div.file`);
     let plus = inputFile.querySelector("i");
-    let space = document.querySelector(`#${check.id} ~ div.space`)
+    let space = document.querySelector(`#${check.id} ~ div.space`);
+    let nameFile = inputFile.querySelector(".nameFile")
     console.log(plus)
     if (check.checked) {
         input.disabled = false;
         inputFile.classList.remove("file-disabled");
-        plus.classList.add("fa-fade");
+        //If file choosed so picture of file must not blink. This chek existence text into div.nameFile 
+        if (!nameFile.innerHTML) {
+            plus.classList.add("fa-fade");
+        }
         space.classList.add("space-active");
     } else {
         inputFile.classList.add("file-disabled");
@@ -26,6 +33,24 @@ function changeCheck(input,check) {
         space.classList.remove("space-active")
         input.disabled = true;
     }
+}
+
+inputKey.addEventListener("change",function(event) {
+    setFileInput(inputKey);
+})
+inputData.addEventListener("change",function(event) {
+    setFileInput(inputData);
+})
+
+function setFileInput(inputFile) {
+    let plus = document.querySelector(`#${inputFile.id} ~ i`);
+    let nameFile = document.querySelector(`#${inputFile.id} ~ .nameFile`)
+    //console.log(nameFile);
+    plus.classList.remove("fa-plus","fa-fade");
+    plus.classList.add("fa-file");
+    let dataFile = inputFile.files[0];
+    console.log(dataFile);
+    nameFile.innerHTML = dataFile.name;
 }
 
 //transformed array of bits in 10 system to string in 16 unit

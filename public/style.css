@@ -48,6 +48,7 @@ body{
     border: 7px solid rgba(255, 255, 0, 0.8);
     color: rgba(255, 255, 0, 0.8);
     display: flex;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     border-radius: 25px 25px 30px 30px;
@@ -63,6 +64,11 @@ body{
 #fileGroup i{
     font-size: 70px;
     z-index: 1;
+    display: block;
+}
+
+.nameFile{
+    margin-top: 1em;
 }
 
 .form-check-input[type=checkbox]{
