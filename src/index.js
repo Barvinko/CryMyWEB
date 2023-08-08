@@ -1,11 +1,18 @@
+import "core-js/stable";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.html';
+import './index.scss';
+// import './main.js;'
+import { eccryptoJS } from "eccrypto-js";
+
 let checkKey = document.getElementById("checkKey");
 let checkData = document.getElementById("chekData");
 let inputKey = document.getElementById("inputKey");
-let inputData = document.getElementById("inputData")
+let inputData = document.getElementById("inputData");
 
 //allow and ban file transfer access for user
 checkKey.addEventListener("change", function() {
-    console.log(inputKey,checkKey)
+    console.log(inputKey,checkKey);
     changeCheck(inputKey, checkKey);
 });
   
@@ -22,7 +29,7 @@ function changeCheck(input,check) {
     if (check.checked) {
         input.disabled = false;
         inputFile.classList.remove("file-disabled");
-        //If file choosed so picture of file must not blink. This chek existence text into div.nameFile 
+        //If file choosed when picture of file must not blink. This chek existence text into div.nameFile 
         if (!nameFile.innerHTML) {
             plus.classList.add("fa-fade");
         }

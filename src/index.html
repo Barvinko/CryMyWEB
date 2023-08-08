@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryWEB</title>
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="./public/style.css">
-    <script defer src="./node_modules/eccrypto-js/dist/umd/index.min.js"></script>
+    <!-- <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css"> -->
+    <!-- <script defer src="./node_modules/eccrypto-js/dist/umd/index.min.js"></script>
     <script defer src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script defer src="./public/main.js"></script>
-    <script defer src="https://kit.fontawesome.com/7cb20bcd44.js" crossorigin="anonymous"></script>
+    <script defer src="./public/main.js"></script> -->
+    <!-- <script defer src="https://kit.fontawesome.com/7cb20bcd44.js" crossorigin="anonymous"></script> -->
 </head>
 <body>
     <div class="container">
@@ -21,14 +20,15 @@
             <div id="fileGroup">
                 <div class="mb-3 me-3">
                     <input class="form-check-input mt-1" type="checkbox" id="checkKey">  
-                    <label for="formFile" class="form-label">KEY</label> 
+                    <!-- <label for="formFile" class="form-label">KEY</label>  -->
+                    <div class="headerInput"></div>
                     <div class="space"></div>
                     <div class="file file-disabled">                
                         <input disabled id="inputKey" class="form-control" type="file" accept=".txt">
                         <i class="fa-solid fa-plus"></i>
                         <div class="nameFile"></div>
                     </div>
-                </div>
+                 </div>
                 <div class="mb-3">
                     <input class="form-check-input mt-1" type="checkbox" value="" id="chekData">
                     <label for="formFile" class="form-label">DATA</label>
