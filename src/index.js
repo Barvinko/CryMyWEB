@@ -1,10 +1,12 @@
-import "core-js/stable";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import "core-js/stable";
+console.log("good 2")
 import './index.html';
 import './index.scss';
 // import './main.js;'
 import { eccryptoJS } from "eccrypto-js";
+// var Buffer = require('buffer/').Buffer
 
+console.log("good 6")
 let checkKey = document.getElementById("checkKey");
 let checkData = document.getElementById("chekData");
 let inputKey = document.getElementById("inputKey");
@@ -19,17 +21,19 @@ checkKey.addEventListener("change", function() {
 checkData.addEventListener("change", function() {
     changeCheck(inputData, checkData);
 });
+console.log("good 21")
 
 function changeCheck(input,check) {
     let inputFile = document.querySelector(`#${check.id} ~ div.file`);
     let plus = inputFile.querySelector("i");
     let space = document.querySelector(`#${check.id} ~ div.space`);
-    let nameFile = inputFile.querySelector(".nameFile")
-    console.log(plus)
+    let nameFile = inputFile.querySelector(".nameFile");
+    console.log("good 27")
+    console.log(plus);
     if (check.checked) {
         input.disabled = false;
         inputFile.classList.remove("file-disabled");
-        //If file choosed when picture of file must not blink. This chek existence text into div.nameFile 
+        //If file choosed then picture of file must not blink. This chek existence text into div.nameFile 
         if (!nameFile.innerHTML) {
             plus.classList.add("fa-fade");
         }

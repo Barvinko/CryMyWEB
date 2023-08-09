@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+const Buffer = require('buffer').Buffer;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -32,6 +34,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname,'src','index.html')
         }),
+        new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+        })
         // new MiniCssExtractPlugin({
         //     filename: '[name].[contenthash].css',
         // })
@@ -110,6 +115,7 @@ module.exports = {
         fallback: {
           stream: require.resolve('stream-browserify'),
           crypto: require.resolve("crypto-browserify"),
+          buffer: require.resolve("buffer")
         },
     },
     optimization: {
@@ -124,6 +130,5 @@ module.exports = {
             extractComments: false,
           }),
         ],
-      },
-    
+    },
 }
