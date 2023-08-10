@@ -1,12 +1,8 @@
 // import "core-js/stable";
-console.log("good 2")
 import './index.html';
 import './index.scss';
-// import './main.js;'
-import { eccryptoJS } from "eccrypto-js";
-// var Buffer = require('buffer/').Buffer
+import { eccryptoJS } from "eccrypto-js/dist/umd/index.min.js";
 
-console.log("good 6")
 let checkKey = document.getElementById("checkKey");
 let checkData = document.getElementById("chekData");
 let inputKey = document.getElementById("inputKey");
@@ -14,34 +10,35 @@ let inputData = document.getElementById("inputData");
 
 //allow and ban file transfer access for user
 checkKey.addEventListener("change", function() {
-    console.log(inputKey,checkKey);
     changeCheck(inputKey, checkKey);
 });
   
 checkData.addEventListener("change", function() {
     changeCheck(inputData, checkData);
 });
-console.log("good 21")
 
 function changeCheck(input,check) {
     let inputFile = document.querySelector(`#${check.id} ~ div.file`);
     let plus = inputFile.querySelector("i");
-    let space = document.querySelector(`#${check.id} ~ div.space`);
+    // let space = document.querySelector(`#${check.id} ~ div.space`);
+    let parentForm = check.parentNode;
+    console.log(parentForm);
     let nameFile = inputFile.querySelector(".nameFile");
-    console.log("good 27")
-    console.log(plus);
+    //console.log(plus);
     if (check.checked) {
         input.disabled = false;
+        parentForm.classList.add('active');
         inputFile.classList.remove("file-disabled");
         //If file choosed then picture of file must not blink. This chek existence text into div.nameFile 
         if (!nameFile.innerHTML) {
             plus.classList.add("fa-fade");
         }
-        space.classList.add("space-active");
+        // space.classList.add("space-active");
     } else {
         inputFile.classList.add("file-disabled");
+        parentForm.classList.remove('active');
         plus.classList.remove("fa-fade");
-        space.classList.remove("space-active")
+        // space.classList.remove("space-active")
         input.disabled = true;
     }
 }
@@ -59,10 +56,15 @@ function setFileInput(inputFile) {
     //console.log(nameFile);
     plus.classList.remove("fa-plus","fa-fade");
     plus.classList.add("fa-file");
+    if (!inputFile.files[0]) {
+        return;
+    }
     let dataFile = inputFile.files[0];
     console.log(dataFile);
     nameFile.innerHTML = dataFile.name;
 }
+
+//////////////////////////////////////////////////////////////////
 
 //transformed array of bits in 10 system to string in 16 unit
 function bitTo16(bits){
@@ -77,9 +79,18 @@ function bitTo16(bits){
     return ints.join('')
 }
 
+console.log("before func encription")
+
+let butCreateKey = document.getElementById("butCreateKey");
+let butEncryption = document.getElementById("butEncryption");
+let butDecryption = document.getElementById("butDecryption");
+
+butCreateKey.addEventListener('onclick',createKey())
+
 //create key AES-256 and downland fail with key
 function createKey() {
 
+    console.log(eccryptoJS)
     // создание ключа
     let Key = eccryptoJS.randomBytes(32);
     let IV = eccryptoJS.randomBytes(16);
@@ -125,7 +136,7 @@ function transformKey(arrNum) {
     return arrBit;
 }
   
-//function of encription and decription, choose which is depended of flag's value
+//function of encription and decription, choose which is depended of flag's value: 0-encryption 1-decription
 async function encryption(flag) {
     let key = "";
     let iv = "";
@@ -244,3 +255,5 @@ async function encryption(flag) {
     }
     console.log(textarea.value)
 }
+
+console.log("files dowllend")

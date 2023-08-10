@@ -20,8 +20,9 @@
             <div id="fileGroup">
                 <div class="me-3">
                     <input class="form-check-input mt-1" type="checkbox" id="checkKey">  
-                    <!-- <label for="formFile" class="form-label">KEY</label>  -->
-                    <div class="headerInput"></div>
+                    <div class="headerInput text-center">
+                        <label for="formFile" class="form-label">KEY</label> 
+                    </div>
                     <div class="space"></div>
                     <div class="file file-disabled">                
                         <input disabled id="inputKey" class="form-control" type="file" accept=".txt">
@@ -31,7 +32,9 @@
                  </div>
                 <div class="">
                     <input class="form-check-input mt-1" type="checkbox" value="" id="chekData">
-                    <label for="formFile" class="form-label">DATA</label>
+                    <div class="headerInput text-center">
+                        <label for="formFile" class="form-label">DATA</label>
+                    </div>
                     <div class="space"></div>
                     <div class="file file-disabled">
                         <input disabled id="inputData" class="form-control" type="file" accept=".txt">
@@ -41,9 +44,9 @@
                 </div>
             </div>
             <div class="btn-group">
-                <button onclick="createKey()" type="button" class="btn btn-warning">Create key</button>
-                <button onclick="encryption(0)" type="button" class="btn btn-warning">Encryption</button>
-                <button onclick="encryption(1)" type="button" class="btn btn-warning">Decryption</button>
+                <button id="butCreateKey" onclick="createKey()" type="button" class="btn btn-warning">Create key</button>
+                <button id="butEncryption" onclick="encryption(0)" type="button" class="btn btn-warning">Encryption</button>
+                <button id="butDecryption" onclick="encryption(1)" type="button" class="btn btn-warning">Decryption</button>
             </div>
             <div class="form-floating mt-3">
                 <textarea class="form-control" placeholder="Leave a comment here" id="textareaKey" style="height: 60px"></textarea>
