@@ -1,7 +1,8 @@
 // import "core-js/stable";
 import './index.html';
 import './index.scss';
-import { eccryptoJS } from "eccrypto-js/dist/umd/index.min.js";
+// import { eccryptoJS } from "eccrypto-js/dist/umd/index.min.js";
+const eccryptoJS = require('eccrypto-js');
 
 let checkKey = document.getElementById("checkKey");
 let checkData = document.getElementById("chekData");
@@ -9,13 +10,9 @@ let inputKey = document.getElementById("inputKey");
 let inputData = document.getElementById("inputData");
 
 //allow and ban file transfer access for user
-checkKey.addEventListener("change", function() {
-    changeCheck(inputKey, checkKey);
-});
+checkKey.addEventListener("change", () => changeCheck(inputKey, checkKey));
   
-checkData.addEventListener("change", function() {
-    changeCheck(inputData, checkData);
-});
+checkData.addEventListener("change", () => changeCheck(inputData, checkData));
 
 function changeCheck(input,check) {
     let inputFile = document.querySelector(`#${check.id} ~ div.file`);
@@ -43,12 +40,8 @@ function changeCheck(input,check) {
     }
 }
 
-inputKey.addEventListener("change",function(event) {
-    setFileInput(inputKey);
-})
-inputData.addEventListener("change",function(event) {
-    setFileInput(inputData);
-})
+inputKey.addEventListener("change",() => setFileInput(inputKey))
+inputData.addEventListener("change",() => setFileInput(inputData))
 
 function setFileInput(inputFile) {
     let plus = document.querySelector(`#${inputFile.id} ~ i`);
@@ -78,14 +71,6 @@ function bitTo16(bits){
     }
     return ints.join('')
 }
-
-console.log("before func encription")
-
-let butCreateKey = document.getElementById("butCreateKey");
-let butEncryption = document.getElementById("butEncryption");
-let butDecryption = document.getElementById("butDecryption");
-
-butCreateKey.addEventListener('onclick',createKey())
 
 //create key AES-256 and downland fail with key
 function createKey() {
@@ -256,4 +241,13 @@ async function encryption(flag) {
     console.log(textarea.value)
 }
 
-console.log("files dowllend")
+let butCreateKey = document.getElementById("butCreateKey");
+let butEncryption = document.getElementById("butEncryption");
+let butDecryption = document.getElementById("butDecryption");
+
+butCreateKey.addEventListener('click',createKey)
+
+butEncryption.addEventListener('click', () => encryption(0))
+butDecryption.addEventListener('click', () => encryption(1))
+
+console.log("files download");
