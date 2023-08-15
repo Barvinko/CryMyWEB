@@ -1,8 +1,7 @@
 const webpack = require('webpack');
-const Buffer = require('buffer').Buffer;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 
 const mode = process.env.NODE_ENV || 'development';
@@ -36,10 +35,10 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             Buffer: ['buffer', 'Buffer'],
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'index.[contenthash].css',
         })
-        // new MiniCssExtractPlugin({
-        //     filename: '[name].[contenthash].css',
-        // })
     ],
     module: {
         rules: [
@@ -50,7 +49,8 @@ module.exports = {
             {
                 test: /\.(c|sa|sc)ss$/i,
                 use: [
-                    "style-loader", 
+                    MiniCssExtractPlugin.loader,
+                    // "style-loader",
                     "css-loader",
                     {
                         loader: 'postcss-loader',

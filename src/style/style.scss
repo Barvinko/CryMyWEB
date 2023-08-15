@@ -3,6 +3,8 @@ body{
     color: $elemenColor;
 }
 
+
+//input`s style which is used to get file "key" and "data"
 #fileGroup{
     display: flex;
     
@@ -12,8 +14,10 @@ body{
         margin-bottom: 1rem;
         background-color: $elemenColor;
         color: black;
+        overflow: hidden;
     }
 
+    // All others tag are child of "> div"
     .active{
         background-color: $yellow;
     }
@@ -21,12 +25,15 @@ body{
     .form-check-input[type=checkbox]{
         width: 150px;
         height: 50px;
-        border-radius: 50px 50px 0px 0;
+        // border-radius: 50px 50px 0px 0;
         box-shadow: 0 0 0 0;
         border: 0px;
         background-image: url(./xmark-solid.svg);
         color: $elemenColor;
         background-color: initial;
+        margin: 0;
+        padding-bottom: 25px;
+        // margin-bottom: -30px;
     }
 
     .form-check-input:checked[type=checkbox]{
@@ -68,6 +75,7 @@ body{
             z-index: 2;
         }
 
+        //svg
         i{
             font-size: 70px;
             z-index: 1;

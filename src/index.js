@@ -17,11 +17,8 @@ checkData.addEventListener("change", () => changeCheck(inputData, checkData));
 function changeCheck(input,check) {
     let inputFile = document.querySelector(`#${check.id} ~ div.file`);
     let plus = inputFile.querySelector("i");
-    // let space = document.querySelector(`#${check.id} ~ div.space`);
     let parentForm = check.parentNode;
-    console.log(parentForm);
     let nameFile = inputFile.querySelector(".nameFile");
-    //console.log(plus);
     if (check.checked) {
         input.disabled = false;
         parentForm.classList.add('active');
